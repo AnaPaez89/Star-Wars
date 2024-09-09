@@ -1,7 +1,5 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+    background: linear-gradient(rgba(5, 7, 12, 0.75), rgba(5, 7, 12, 0.75)),
+    url(https://i.ibb.co/PMzQY7M/wallpaperflare-com-wallpaper.jpg);
+    background-size: cover;
+}
