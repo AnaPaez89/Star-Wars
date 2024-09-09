@@ -49,7 +49,7 @@ export const Contacts = () => {
                 <h5 className="text-center text-white fw-bold fst-italic">The path of the Jedi requires compassion, but also discipline</h5>
                 <div className="d-flex flex-row-reverse">
                     <Link to="/add">
-                        <button className="btn btn-primary text-right my-3">Be a Jedi now!</button>
+                        <button className="btn btn-primary text-right my-4">Be a Jedi now!</button>
                     </Link>
                  </div>
             </div>
