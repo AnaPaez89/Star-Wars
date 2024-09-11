@@ -5,8 +5,6 @@ import { Context } from "../store/appContext.js";
 import "../../styles/home.css";
 import Modal from "../component/Modal.jsx";
 
-
-
 export const Contacts = () => {
     const { store, actions } = useContext(Context);
     const [showModal, setShowModal] = useState(false);
@@ -19,9 +17,6 @@ export const Contacts = () => {
         setShowModal(false);
         setContactToDelete(null);
     };
-
-
-
 
     const deleteContact = () => {
         if (contactToDelete) {
@@ -51,7 +46,7 @@ export const Contacts = () => {
                     <Link to="/add">
                         <button className="btn btn-primary text-right my-4">Be a Jedi now!</button>
                     </Link>
-                 </div>
+                </div>
             </div>
             <div>
                 <div id="contacts" className="panel-collapse collapse show" aria-expanded="true">

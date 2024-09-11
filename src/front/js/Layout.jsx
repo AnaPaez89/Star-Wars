@@ -15,6 +15,10 @@ import { Home } from "./pages/Home.jsx";
 import { Demo } from "./pages/Demo.jsx";
 import { Single } from "./pages/Single.jsx";
 import { AddContact } from "./pages/AddContact.jsx";
+import { SingleCharacter } from "./pages/SingleCharacter.jsx";
+import { SinglePlanet } from "./pages/SinglePlanet.jsx";
+import { SingleStarship } from "./pages/SingleStarship.jsx";
+import { Error404 } from "./pages/Error404.jsx";
 
 //create your first component
 const Layout = () => {
@@ -24,7 +28,7 @@ const Layout = () => {
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
 
     return (
-        <div>
+        <div className="d-flex flex-column min-vh-100">
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
@@ -33,12 +37,15 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Characters />} path="/characters" />
+                        <Route path="/characters/:theid" element={<SingleCharacter />} />
                         <Route element={<Contacts />} path="/contacts" />
                         <Route path="/add" element={<AddContact />} />
 						<Route path="/edit/:id" element={<AddContact />} />
                         <Route element={<Planets />} path="/planets" />
+                        <Route path="/planet/:id" element={<SinglePlanet />} />
                         <Route element={<Starships />} path="/starships" />
-                        <Route element={<h1>Not found!</h1>} path="*" />
+						<Route path="/starships/:starshipsid" element={<SingleStarship />} />
+                        <Route element={<Error404 />} path="*" />                    
                     </Routes>
                     <Footer />
                 </ScrollToTop>
