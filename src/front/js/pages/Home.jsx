@@ -10,13 +10,13 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5 " id="background">
-			<h1 className="text-white fw-bold">..Welcome to a Galaxy Far, Far Away...</h1>
+			<h1 className="text-white fw-bold">...Welcome to a Galaxy Far, Far Away...</h1>
 			<p className="text-white fw-bold fst-italic">Discover Characters, Planets, and Starships from the Star Wars Universe</p>
 			<p>
-				<img src={stHomeImageUrl} />
+				<img className="img-fluid rounded" src={stHomeImageUrl} />
 			</p>
 			<h2 className="text-white fw-bold">May the Force Be With You</h2>
-			<img src={babyYoda} />
+			<img className="img-fluid" src={babyYoda} />
 		</div>
 	);
 };

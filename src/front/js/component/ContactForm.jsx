@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-
 export const ContactForm = ({ name, address, phone, email, id, onDeleteClick }) => {
 
     return (
@@ -34,10 +33,7 @@ export const ContactForm = ({ name, address, phone, email, id, onDeleteClick }) 
                 </div>
             </div>
         </li>
-
-
     );
-
 
 };
 ContactForm.propTypes = {

@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
-
 const Modal = ({ show, onClose, onDelete }) => {
     if (!show) {
         return null;

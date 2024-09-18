@@ -1,9 +1,15 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			contacts: []
+			contacts: [],
+			characters: [],
+			character: {},
+			planets: [],
+			planet: {},
+			favorites: []
 		},
 		actions: {
+			//Contact List
 			userExists: () => {
 				return fetch("https://playground.4geeks.com/contact/agendas/anapaez", {
 					method: "GET",
@@ -133,6 +139,85 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => {
 						console.error("Error actualizando el contacto:", error);
 					});
+			},
+			//Star Wars 
+			getCharacters: async ()=>{
+				try {
+					const response = await fetch('https://swapi.dev/api/people')
+					const data = await response.json()
+					console.log(data)
+					setStore({
+						characters: data.results
+					})
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			getCharacterProfile: async (id)=>{
+				try {
+					const response = await fetch('https://swapi.dev/api/people/' + id)
+					const data = await response.json()
+					console.log(data)
+					setStore({
+						character: data
+					})
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			getPlanets: async ()=>{
+				try {
+					const response = await fetch('https://swapi.dev/api/planets')
+					const data = await response.json()
+					console.log(data)
+					setStore({
+						planets: data.results
+					})
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			getPlanetProfile: async (id)=>{
+				try {
+					const response = await fetch(`https://swapi.dev/api/planets/${id}`)
+					const data = await response.json()
+					console.log(data)
+					setStore({
+						planet: data
+					})
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			getStarships: async () => {
+				const url = "https://www.swapi.tech/api/starships"
+				const request = {
+					method: "GET"
+				}
+
+				if (localStorage.getItem("starshipsLocal") === null) {
+
+					const response = await fetch(url,request);
+					if (response.ok) {
+						const data = await response.json();	
+						localStorage.setItem('starshipsLocal', JSON.stringify(data))}
+					else { "Error" }
+				}
+			},
+			addFavorite: (favorite) =>{
+				const store = getStore()
+				setStore({
+					favorites: [...store.favorites, favorite]
+				})
+				console.log(store.favorites)
+			},
+			deleteFavorite: (favorite) => {
+				const store = getStore()
+				const newFavorites = store.favorites.filter(fav => fav !== favorite)
+				setStore({
+					favorites: newFavorites
+				})
+				console.log(store.favorites)
 			}
 		}
 	};
