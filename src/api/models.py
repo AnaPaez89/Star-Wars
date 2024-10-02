@@ -51,7 +51,7 @@ class Posts(db.Model):
                 'image_url': self.image_url,
                 'author': self.user_id}
     
-
+    
 class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String, unique=False, nullable=False)
@@ -78,7 +78,7 @@ class Medias(db.Model):
         return {'id': self.id,
                 'media_type': self.media_type,
                 'url': self.url,
-                'post_id': self.post.id}
+                'post_id': self.post_id}
 
 
 class Followers(db.Model):
