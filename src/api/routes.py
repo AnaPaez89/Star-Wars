@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from datetime import datetime
-from api.models import db, Users, Posts, Characters, Planets, Comments, Medias, Followers, CharacterFavorites, PlanetFavorites
+from api.models import db, Users, Posts, Characters, Planets, Comments, Medias
 
 
 api = Blueprint('api', __name__)
