@@ -354,4 +354,3 @@ def media(id):
         response_body['message'] = f'El media {id} ha sido eliminada'
         response_body['results'] = {}
         return response_body, 200
-
