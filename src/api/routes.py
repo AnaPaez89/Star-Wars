@@ -32,7 +32,7 @@ def login():
     if not user:
         response_body['message'] = 'Bad email or password'
         return response_body, 401
-    print(user.serialize())
+    print('************ Valor de user *************:', user.serialize())
     access_token = create_access_token(identity={'email': user.email, 'user_id': user.id, 'is_admin': user.is_admin})
     response_body['message'] = f'Bienvenido {email}'
     response_body['access_token'] = access_token
@@ -103,9 +103,9 @@ def post(id):
         return response_body, 404
     current_user = get_jwt_identity()
     if row.user_id != current_user['user_id']:
-        response_body['message'] = f'No puede gestionar la publicacion {id}'
+        response_body['message'] = f'No puede gestionar la publicación {id}'
         response_body['results'] = {}
-        return response_body, 404
+        return response_body, 401
     if request.method == 'GET':
         response_body['message'] = f'Datos de la Publicación: {id}'
         response_body['results'] = row.serialize()
@@ -119,7 +119,6 @@ def post(id):
         row.body = data.get('body')
         row.date = datetime.now()
         row.image_url = data.get('image_url')
-        row.user_id = data.get('user_id')
         db.session.commit()
         response_body['message'] = f'Publicación: {id} modificada'
         response_body['results'] = row.serialize()

@@ -49,7 +49,7 @@ class Posts(db.Model):
                 'body': self.body,
                 'date': self.date,
                 'image_url': self.image_url,
-                'author': self.user_id}
+                'user_id': self.user_id}
     
     
 class Comments(db.Model):
