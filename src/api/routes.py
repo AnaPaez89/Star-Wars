@@ -5,7 +5,10 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from datetime import datetime
-from api.models import db, Users, Posts, Characters, Planets, Comments, Medias, Followers
+from api.models import db, Users, Posts, Characters, Planets, Comments, Medias
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 
 api = Blueprint('api', __name__)
@@ -16,6 +19,33 @@ CORS(api)  # Allow CORS requests to this API
 def handle_hello():
     response_body = {}
     response_body["message"] = """Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"""
+    return response_body, 200
+
+
+@api.route("/login", methods=["POST"])
+def login():
+    response_body = {}
+    data = request.json
+    email = data.get("email", None)
+    password = request.json.get("password", None)
+    user = db.session.execute(db.select(Users).where(Users.email == email, Users.password == password, Users.is_active)).scalar()
+    if not user:
+        response_body['message'] = 'Bad email or password'
+        return response_body, 401
+    print('************ Valor de user *************:', user.serialize())
+    access_token = create_access_token(identity={'email': user.email, 'user_id': user.id, 'is_admin': user.is_admin})
+    response_body['message'] = f'Bienvenido {email}'
+    response_body['access_token'] = access_token
+    return response_body, 200
+
+
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    response_body = {}
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    response_body['logged_in_as'] = current_user
     return response_body, 200
 
 
@@ -62,6 +92,7 @@ def posts():
 
 
 @api.route('/posts/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def post(id):
     response_body = {}
     # Validar que id exista en la base de datos
@@ -70,6 +101,11 @@ def post(id):
         response_body['message'] = f'La publicación {id} no existe'
         response_body['results'] = {}
         return response_body, 404
+    current_user = get_jwt_identity()
+    if row.user_id != current_user['user_id']:
+        response_body['message'] = f'No puede gestionar la publicación {id}'
+        response_body['results'] = {}
+        return response_body, 401
     if request.method == 'GET':
         response_body['message'] = f'Datos de la Publicación: {id}'
         response_body['results'] = row.serialize()
@@ -83,7 +119,6 @@ def post(id):
         row.body = data.get('body')
         row.date = datetime.now()
         row.image_url = data.get('image_url')
-        row.user_id = data.get('user_id')
         db.session.commit()
         response_body['message'] = f'Publicación: {id} modificada'
         response_body['results'] = row.serialize()
@@ -238,6 +273,7 @@ def comments():
 
 
 @api.route('/comments/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def comment(id):
     response_body = {}
     row = db.session.execute(db.select(Comments).where(Comments.id == id)).scalar()
@@ -245,6 +281,11 @@ def comment(id):
         response_body['message'] = f'El comentario {id} no existe'
         response_body['results'] = {}
         return response_body, 404
+    current_user = get_jwt_identity()
+    if row.user_id != current_user['user_id']:
+        response_body['message'] = f'No puede gestionar el comentario {id}'
+        response_body['results'] = {}
+        return response_body, 401
     if request.method == 'GET':
         response_body['message'] = f'Datos de los comentarios: {id}'
         response_body['results'] = row.serialize()
@@ -253,7 +294,6 @@ def comment(id):
         data = request.json
         row.body = data.get('body')
         row.post_id = data.get('post_id')
-        row.user_id = data.get('user_id')
         db.session.commit()
         response_body['message'] = f'El comentario {id} ha sido modificado'
         response_body['results'] = row.serialize()
@@ -278,7 +318,8 @@ def medias():
     if request.method == 'POST':
         data = request.json
         row = Medias(media_type = data.get('media_type'),
-                     url = data.get('url'))
+                     url = data.get('url'),
+                     post_id = data.get('post_id'))
         db.session.add(row)
         db.session.commit()
         response_body['message'] = 'Creando un media'
@@ -313,4 +354,3 @@ def media(id):
         response_body['message'] = f'El media {id} ha sido eliminada'
         response_body['results'] = {}
         return response_body, 200
-    
