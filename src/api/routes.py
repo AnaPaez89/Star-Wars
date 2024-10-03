@@ -273,6 +273,7 @@ def comments():
 
 
 @api.route('/comments/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def comment(id):
     response_body = {}
     row = db.session.execute(db.select(Comments).where(Comments.id == id)).scalar()
@@ -280,6 +281,11 @@ def comment(id):
         response_body['message'] = f'El comentario {id} no existe'
         response_body['results'] = {}
         return response_body, 404
+    current_user = get_jwt_identity()
+    if row.user_id != current_user['user_id']:
+        response_body['message'] = f'No puede gestionar el comentario {id}'
+        response_body['results'] = {}
+        return response_body, 401
     if request.method == 'GET':
         response_body['message'] = f'Datos de los comentarios: {id}'
         response_body['results'] = row.serialize()
@@ -288,7 +294,6 @@ def comment(id):
         data = request.json
         row.body = data.get('body')
         row.post_id = data.get('post_id')
-        row.user_id = data.get('user_id')
         db.session.commit()
         response_body['message'] = f'El comentario {id} ha sido modificado'
         response_body['results'] = row.serialize()
