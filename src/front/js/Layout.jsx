@@ -10,6 +10,7 @@ import { Characters } from  "./component/Characters.jsx";
 import { Contacts } from "./component/Contacts.jsx";
 import { Planets } from "./component/Planets.jsx";
 import { Starships } from "./component/Starships.jsx";
+import { Alert } from "./component/Alert.jsx";
 // Custom pages / views
 import { Home } from "./pages/Home.jsx";
 import { Demo } from "./pages/Demo.jsx";
@@ -19,6 +20,10 @@ import { SingleCharacter } from "./pages/SingleCharacter.jsx";
 import { SinglePlanet } from "./pages/SinglePlanet.jsx";
 import { SingleStarship } from "./pages/SingleStarship.jsx";
 import { Error404 } from "./pages/Error404.jsx";
+import { Login } from "./pages/Login.jsx";
+import { Register } from "./pages/Register.jsx";
+import { Dashboard } from "./pages/Dashboard.jsx";
+
 
 //create your first component
 const Layout = () => {
@@ -45,8 +50,12 @@ const Layout = () => {
                         <Route path="/planet/:id" element={<SinglePlanet />} />
                         <Route element={<Starships />} path="/starships" />
 						<Route path="/starships/:starshipsid" element={<SingleStarship />} />
+                        <Route element={<Login />} path="/login" /> 
+                        <Route element={<Register />} path="/register" /> 
+                        <Route element={<Dashboard />} path="/dashboard" /> 
                         <Route element={<Error404 />} path="*" />                    
                     </Routes>
+                    <Alert/>
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>
