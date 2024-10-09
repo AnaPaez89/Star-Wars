@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { useContext } from "react";
 import "../../styles/nav.css";
@@ -7,6 +7,17 @@ import starwarsImageUrl from "../../img/logo-starwars.png";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
+  const navigate = useNavigate()
+
+
+  const handleLogin = () => {
+    if (store.isLoged) {
+      actions.logout();
+      navigate('/login');
+    } else {
+      navigate('/login');
+    }
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Offcanvas navbar large">
@@ -24,6 +35,9 @@ export const Navbar = () => {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li className="nav-item text-white p-2">
+                {store.isLoged ? `Bienvenido ${store.user}` : ''}
+              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/characters">
                   Characters
@@ -56,6 +70,13 @@ export const Navbar = () => {
                     </div>
                   ))}
                 </ul>
+              </li>
+              <li className="nav-item">
+                <div>
+                  <button className="btn btn-primary" onClick={handleLogin}>
+                    {store.isLoged ? 'Logout' : 'Login'}
+                  </button>
+                </div>
               </li>
             </ul>
           </div>
