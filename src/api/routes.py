@@ -206,7 +206,7 @@ def character(id):
         return response_body, 200
 
 
-@api.route('/planets', methods=['GET', 'POST'])
+@api.route('/planets', methods=['GET'])
 def planets():
     response_body = {}
     rows = db.session.execute(db.select(Planets)).scalars()
@@ -388,4 +388,3 @@ def followers():
         response_body['message'] = 'Listado de todas los followers'
         response_body['results'] = result
         return response_body, 200
-
