@@ -54,5 +54,9 @@ Star Wars Blog is a project where you can find information about characters, pla
 ![Add Contact](src/front/img/addcontact-sw.png "Add Contact to Star Wars Blog")
 
 ---
-**May the Force Be With You**
-![Baby Yoda](src/front/img/baby-yoda.png "Baby Yoda")
+
+<p align="center">
+  <strong>May the Force Be With You</strong>
+  <br>
+  <img src="src/front/img/baby-yoda.png" alt="Baby Yoda" title="Baby Yoda" />
+</p>
