@@ -1,81 +1,58 @@
-# WebApp boilerplate with React JS and Flask API
+# Star War Blog 🌠
+**...Welcome to a Galaxy Far, Far Away...**  
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+Star Wars Blog is a project where you can find information about characters, planets, and starships from one of the most incredible movie sagas ever made. You can create a user profile, save your favorite characters, planets, or starships, and even create contacts.
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+![Homepage of Star Wars Blog](src/front/img/home-sw.png "Screenshot of the homepage")
 
-### 1) Installation:
+---
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+## Key Features 🌟 
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+1. **Explore the Universe**: Access detailed information about iconic Star Wars characters, planets, and starships.
+2. **Create Your Profile**: Set up a personal account to save your favorite characters, planets, and starships.  
+3. **Favorites Collection**: Easily mark and keep track of your top characters, planets, and starships.
+4. **Create Contacts**: Connect with fellow fans by creating and managing contacts within the app.  
+5. **User-Friendly Interface**: Navigate effortlessly through the app with an intuitive design and smooth user experience. 
+6. **Stay Updated:**: Get the latest updates and news related to the Star Wars universe.
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+---
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+## Technologies Used 🚀 
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+### **Frontend**  
+- **HTML5**: Semantic content structure.  
+- **CSS3**: Custom styles for a responsive design.  
+- **Bootstrap**: Quick components and responsive grid systems.  
+- **JavaScript**: Interactivity and client-side logic.  
+- **React.js**: Reusable components and state management with Flux.  
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+### **Backend**  
+- **Python**: Server-side logic and data handling.  
+- **Flask**: Framework for routing, authentication, and database connections.  
+- **APIs**: Integration of external services to fetch up-to-date information about Star Wars characters, planets, and starships from trusted sources.
 
-### Undo a migration
+### **State & Data Management**  
+- **Flux**: Global state management.  
+---
 
-You are also able to undo a migration by running
+## Screenshots 📷 
 
-```sh
-$ pipenv run downgrade
-```
+### Characters Section  
+![Characters](src/front/img/characters-sw.png "Characters from Star Wars")
 
-### Backend Populate Table Users
+### Planets Section  
+![Planets](src/front/img/planets-sw.png "Planets from Star Wars")
 
-To insert test users in the database execute the following command:
+### Starships Section  
+![Starships](src/front/img/starships-sw.png "Starships from Star Wars")
 
-```sh
-$ flask insert-test-users 5
-```
+### Contacts Section & Favorites
+![Contacts & Favorites](src/front/img/contacts-favorites-sw.png "Contacts & Favorites")
 
-And you will see the following message:
+### Add Contact Section  
+![Add Contact](src/front/img/addcontact-sw.png "Add Contact to Star Wars Blog")
 
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
-```
-
-### **Important note for the database and the data inside it**
-
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
-
-### Front-End Manual Installation:
-
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
-
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
-
-## Publish your website!
-
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+---
+**May the Force Be With You**
+![Baby Yoda](src/front/img/baby-yoda.png "Baby Yoda")
